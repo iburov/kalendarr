@@ -2,6 +2,7 @@ package com.example.kalendarr;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -63,6 +64,10 @@ public class ListItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.edit_menu_btn:
                 //go to edit activity
+                Intent editIntent = new Intent(getApplicationContext(), EditEventActivity.class);
+                editIntent.putExtra("eventIdToEdit", Integer.parseInt(eventId));
+                editIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(editIntent);
             case R.id.delete_menu_btn:
                 Bundle bundle = new Bundle();
                 bundle.putInt("eventIdToDelete", Integer.parseInt(eventId));
@@ -74,5 +79,13 @@ public class ListItemActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(intent);
     }
 }
