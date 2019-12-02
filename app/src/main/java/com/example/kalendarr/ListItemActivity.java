@@ -24,13 +24,13 @@ public class ListItemActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
 
-    final Intent intent = getIntent();
-    final String eventId = intent.getStringExtra("eventId");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_item);
+
+        Intent intent = getIntent();
+        String eventId = intent.getStringExtra("eventId");
 
         fragmentManager = getSupportFragmentManager();
 
@@ -57,6 +57,9 @@ public class ListItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent = getIntent();
+        String eventId = intent.getStringExtra("eventId");
+
         switch (item.getItemId()) {
             case R.id.edit_menu_btn:
                 //go to edit activity
@@ -65,8 +68,8 @@ public class ListItemActivity extends AppCompatActivity {
                 bundle.putInt("eventIdToDelete", Integer.parseInt(eventId));
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 DeleteEventFragment deleteEventFragment = new DeleteEventFragment();
+                fragmentTransaction.add(R.id.delete_fragment, deleteEventFragment,"delete_frag");
                 deleteEventFragment.setArguments(bundle);
-                fragmentTransaction.add(R.id.delete_fragment, deleteEventFragment, null);
                 fragmentTransaction.commit();
         }
 

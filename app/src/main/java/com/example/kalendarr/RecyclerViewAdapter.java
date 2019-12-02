@@ -67,9 +67,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void openListItemActivity(int id) {
         Intent intent = new Intent(context, ListItemActivity.class);
-        String eventId = id + "";
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String eventId = Integer.toString(id);
         intent.putExtra("eventId", eventId);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 }

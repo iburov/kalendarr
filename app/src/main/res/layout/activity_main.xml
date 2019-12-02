@@ -27,7 +27,7 @@
             tools:layout_editor_absoluteX="24dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/add_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.001"
