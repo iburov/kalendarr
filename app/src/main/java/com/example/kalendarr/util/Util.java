@@ -1,6 +1,7 @@
 package com.example.kalendarr.util;
 
 import java.text.DateFormatSymbols;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Util {
     public static final int DATABASE_VERSION = 1;
@@ -20,5 +21,14 @@ public class Util {
     public static String getMonth(String date) {
         int monthNumber = Integer.parseInt(getSplitMonthString(date)[1]);
         return new DateFormatSymbols().getMonths()[monthNumber-1];
+    }
+
+    public static class Sequence {
+
+        private static final AtomicInteger counter = new AtomicInteger();
+
+        public static int nextValue() {
+            return counter.getAndIncrement();
+        }
     }
 }

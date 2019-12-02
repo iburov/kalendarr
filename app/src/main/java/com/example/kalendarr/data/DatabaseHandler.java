@@ -30,10 +30,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (" +
-                "event_id INTERGER, " +
-                "event_title TEXT, " +
-                "event_description TEXT, " +
-                "event_date TEXT)";
+                KEY_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                KEY_TITLE + "  NOT NULL, " +
+                KEY_DESCRIPTION + " TEXT NOT NULL, " +
+                KEY_DATE + " TEXT NOT NULL)";
         db.execSQL(createTable);
     }
 
@@ -45,11 +45,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void dropTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String DROP_TABLE = String.valueOf(R.string.db_drop);
+        db.execSQL(DROP_TABLE + " " + DATABASE_NAME);
+        onCreate(db);
+    }
+
     public void addEvent(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID, event.getId());
         values.put(KEY_TITLE, event.getTitle());
         values.put(KEY_DESCRIPTION, event.getDescription());
         values.put(KEY_DATE, event.getDate());
@@ -79,8 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 null
         );
 
-        if(cursor != null) {
-            cursor.moveToFirst();
+        if(cursor.moveToFirst()) {
             Event e = new Event();
             e.setId(Integer.parseInt(cursor.getString(0)));
             e.setTitle(cursor.getString(1));
@@ -104,7 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()) {
             do {
                 Event event = new Event();
-                event.setId(Integer.parseInt(cursor.getString(0)));
+                event.setId(cursor.getInt(0));
                 event.setTitle(cursor.getString(1));
                 event.setDescription(cursor.getString(2));
                 event.setDate(cursor.getString(3));

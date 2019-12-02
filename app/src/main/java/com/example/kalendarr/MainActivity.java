@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.example.kalendarr.util.Util.DATABASE_NAME;
+
 public class MainActivity extends AppCompatActivity {
 
     //array for testing
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final DatabaseHandler db = new DatabaseHandler(MainActivity.this);
+//        db.deleteAll();
+//        getApplicationContext().deleteDatabase(DATABASE_NAME);
+//        db.addEvent(new Event(null, "TILE", "DESCRIPTION!!!!", "02/12/2019"));
+
         final List<Event> events = db.getEvents();
 
         final CalendarView cv = findViewById(R.id.calendarView);

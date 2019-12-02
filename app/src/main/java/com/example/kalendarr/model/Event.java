@@ -9,6 +9,12 @@ public class Event {
     public Event() {
     }
 
+    public Event(String title, String description, String date) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+    }
+
     public Event(int id, String title, String description, String date) {
         this.id = id;
         this.title = title;
